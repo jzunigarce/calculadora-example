@@ -2,9 +2,11 @@
 	<html lang="en">
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Document</title>
 		<style>
 			* {
+				box-sizing: border-box;
 				margin: 0;
 			}
 
@@ -17,7 +19,7 @@
 				background-color: #010101;
 				padding: 40px 10px 10px;
 				display: inline-block;
-				width: 252px;
+				width: 280px;
 				overflow: hidden;
 			}
 
@@ -150,7 +152,7 @@
 							break;
 							
 					}
-					document.querySelector('.result h2').textContent = textResult
+					document.querySelector('.result h2').innerHTML = textResult
 				})
 			}
 		</script>
