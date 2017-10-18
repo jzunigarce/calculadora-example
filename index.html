@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+		<style>
+			* {
+				margin: 0;
+			}
+
+			.error {
+				color: red;
+				font-size: 20px
+			}
+
+			.cal {
+				background-color: #010101;
+				padding: 40px 10px 10px;
+				display: inline-block;
+				width: 252px;
+				overflow: hidden;
+			}
+
+			.result h2 {
+				font-size: 40px;
+				text-align: right;
+				color: #ffffff;
+			}
+
+			.btn {
+				width: 50px;
+				height: 50px;
+				border: 0;
+				border-radius: 50%;
+				font-size: 16px;
+				margin: 5px;
+			}
+
+			.btn:focus {
+				outline: none;
+			}
+
+			.btn-digit {
+				color: #ededed;
+				background-color: #333333;
+			}
+
+			.btn-operator {
+				color: #ededed;
+				background-color: #ff9501;
+			}
+
+			.btn-options {
+				color: #010101;
+				background-color: #a6a6a6;
+			}
+
+			.btn-digit:active {
+				background-color: #2c2727;
+			}
+			.btn-operator:active {
+				background-color: #dc8309;
+			}
+			.btn-options:active {
+				background-color: #6f6e6e;
+			}
+
+		</style>
+	</head>
+	<body>
+		<div class="cal">
+			<div class="result">
+				<h2>0</h2>
+			</div>
+			<div class="row">
+				<button class="btn btn-options">AC</button>
+			</div>
+			<div class="row">
+				<button class="btn btn-digit">7</button>
+				<button class="btn btn-digit">8</button>
+				<button class="btn btn-digit">9</button>
+				<button class="btn btn-operator">/</button>
+			</div>
+			<div class="row">
+				<button class="btn btn-digit">4</button>
+				<button class="btn btn-digit">5</button>
+				<button class="btn btn-digit">6</button>
+				<button class="btn btn-operator">x</button>
+			</div>
+			<div class="row">
+				<button class="btn btn-digit">1</button>
+				<button class="btn btn-digit">2</button>
+				<button class="btn btn-digit">3</button>
+				<button class="btn btn-operator">-</button>
+			</div>
+			<div class="row">
+				<button class="btn btn-digit">0</button>
+				<button class="btn btn-operator">.</button>
+				<button class="btn btn-operator">=</button>
+				<button class="btn btn-operator">+</button>
+			</div>
+		</div>
+		<script>
+			let btns = document.querySelectorAll('.btn')
+			let result = 0
+			let state = 0
+			let operator = ''
+			for(let i = 0; i < btns.length; i++) {
+				btns[i].addEventListener('click', function () {
+					console.log(this.textContent)
+					let textResult = document.querySelector('.result h2').textContent
+					switch(this.textContent) {
+						case 'AC':
+							textResult = '0'
+							break;
+						case 'x':
+						case '+':
+						case '-':
+						case '/':
+							textResult += this.textContent
+							state = 0
+							break;
+						case '0':
+						case '1':
+						case '2':
+						case '3':
+						case '4':
+						case '5':
+						case '6':
+						case '7':
+						case '8':
+						case '9':
+							textResult = textResult == '0' ? this.textContent : textResult + this.textContent
+							break;
+						case '.':
+							let strSize = textResult.length
+							if (textResult[strSize - 1] != '.' && state != 1) {
+								textResult += this.textContent
+								state = 1
+							}
+
+							break;
+						case '=':
+							textResult = textResult.replace(/x/g, '*')
+							try {
+								textResult = eval(textResult)
+							} catch (err) {
+								textResult = '<span class="error">Operación incorrecta</span>'
+							}
+							break;
+							
+					}
+					document.querySelector('.result h2').textContent = textResult
+				})
+			}
+		</script>
+	</body>
+	</html>	
