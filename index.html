@@ -136,12 +136,12 @@
 						case '8':
 						case '9':
 							textResult = textResult == '0' ? this.textContent : textResult + this.textContent
-							if (state == 1)
+							if (state == 2 || state == 1)
 								state = 3
 							break;
 						case '.':
 							let strSize = textResult.length
-							if (state != 1 && state != 3) {
+							if (state != 1) {
 								textResult += this.textContent
 								state = 1
 							}
